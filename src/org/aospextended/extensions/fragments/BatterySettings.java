@@ -34,7 +34,7 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 import org.aospextended.extensions.preference.CustomSeekBarPreference;
 
-public class BatteryBar extends SettingsPreferenceFragment
+public class BatterySettings extends SettingsPreferenceFragment
             implements Preference.OnPreferenceChangeListener  {
 
     private static final String PREF_BATT_BAR_NO_NAVBAR = "statusbar_battery_bar_no_navbar_list";
@@ -63,7 +63,7 @@ public class BatteryBar extends SettingsPreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.battery_bar);
+        addPreferencesFromResource(R.xml.battery_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
