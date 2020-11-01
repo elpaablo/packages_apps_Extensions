@@ -30,6 +30,8 @@ import com.android.internal.logging.nano.MetricsProto;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
+import org.aospextended.extensions.utils.Util;
+
 import org.aospextended.extensions.preference.CardviewPreference;
 
 public class System extends SettingsPreferenceFragment implements
@@ -37,6 +39,7 @@ public class System extends SettingsPreferenceFragment implements
 
     private static final String TAG = "System";
     private static final String PREF_BATTERY = "battery";
+    private static final String PREF_SYSTEM_APP_REMOVER = "system_app_remover";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class System extends SettingsPreferenceFragment implements
                         com.android.internal.R.bool.config_intrusiveBatteryLed)) {
             getPreferenceScreen().removePreference(mBattery);
         }
+        
+        Preference systemAppRemover = findPreference(PREF_SYSTEM_APP_REMOVER);
+        Util.requireRoot(getActivity(), systemAppRemover);
     }
 
 

@@ -19,5 +19,18 @@
     <!-- Notification headers -->
     <string name="notification_headers_title">Notification Headers</string>
     <string name="notification_headers_summary">Show headers in the notification shade\nRequires a SystemUI restart</string>
+    
+    <!-- System app remover -->
+    <string name="system_app_remover_title">Uninstaller</string>
+    <string name="system_app_remover_summary">Remove pre-installed apps</string>
+    <string name="system_app_remover_message_delete">Are you sure you want to delete this app?</string>
+    <string name="system_app_remover_message_noselect">Nothing selected</string>
+    <string name="reboot_dialog_ok">Reboot</string>
+    <string name="reboot_dialog_cancel">@string/cancel</string>
+    <string name="soft_reboot_title">Rebooting</string>
+    <string name="soft_reboot_message">Soft reboot is in progress, please be patient</string>
+    <string name="systemui_restart_title">SystemUI restart required</string>
+    <string name="systemui_restart_message">For all changes to take effect, a SystemUI restart is required. Restart SystemUI now?</string>
+    <string name="cannot_get_su">Action failed because of missing superuser access</string>
 
 </resources>

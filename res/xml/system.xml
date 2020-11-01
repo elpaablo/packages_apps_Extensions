@@ -48,5 +48,12 @@
             android:fragment="org.aospextended.extensions.fragments.GamingMode"
             android:icon="@drawable/ic_sub_gaming"
             android:title="@string/gaming_mode_title" />
+            
+          <org.aospextended.extensions.preference.CardviewPreference
+            android:key="system_app_remover"
+            android:title="@string/system_app_remover_title"
+            android:icon="@drawable/ic_sub_system_app_remover">
+            <intent android:action="org.aospextended.extensions.ViewSystemAppRemover" />
+          </org.aospextended.extensions.preference.CardviewPreference>
 
 </PreferenceScreen>
