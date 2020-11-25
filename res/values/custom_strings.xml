@@ -139,5 +139,11 @@
     <string name="gesture_system_navigation_title">System navigation gestures</string>
     <string name="gesture_system_navigation_summary">Choose your navigation style</string>
     <string name="navbar_settings_title">Navigation bar</string>
+    
+   <!-- QS Header data uasge -->
+   <string name="qs_datausage_title">Data usage in QS Header</string>
+   <string name="qs_datausage_disabled">Disabled</string>
+   <string name="qs_datausage_daily">Daily usage</string>
+   <string name="qs_datausage_monthly">Monthly usage</string>
 
 </resources>
