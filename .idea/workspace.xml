@@ -36,17 +36,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8625053e-9008-4433-b9c7-f8bf31887608" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/drawable/ic_settings_system_app_remover.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/drawable/system_app_remover_fab_shape.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/drawable/system_app_remover_fab_shape.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/drawable/system_app_remover_floating_action_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/drawable/system_app_remover_floating_action_button.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/layout/system_app_remover.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/system_app_remover.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/layout/system_app_remover_empty_list_entry_footer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/system_app_remover_empty_list_entry_footer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/layout/system_app_remover_floating_action_button.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/values/custom_strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/values/custom_strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/xml/system.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/xml/system.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/aospextended/extensions/SystemappRemover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/aospextended/extensions/SystemappRemover.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/aospextended/extensions/utils/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/aospextended/extensions/utils/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/aospextended/extensions/fragments/NavbarSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/aospextended/extensions/fragments/NavbarSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
