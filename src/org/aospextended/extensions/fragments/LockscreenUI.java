@@ -44,6 +44,9 @@ import java.util.List;
 public class LockscreenUI extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
 	private static final String FINGERPRINT_VIB = "fingerprint_success_vib";
+	private static final String FOD_ICON_PICKER_CATEGORY = "fod_icon_picker";
+
+    private PreferenceCategory mFODIconPickerCategory;
 
     private FingerprintManager mFingerprintManager;
     private SystemSettingSwitchPreference mFingerprintVib;
@@ -73,6 +76,11 @@ public class LockscreenUI extends SettingsPreferenceFragment implements OnPrefer
         } else {
             prefSet.removePreference(mFingerprintVib);
         }
+        
+        /*mFODIconPickerCategory = findPreference(FOD_ICON_PICKER_CATEGORY);
+        if (mFODIconPickerCategory != null && !FodUtils.hasFodSupport(getContext())) {
+            prefSet.removePreference(mFODIconPickerCategory);
+        }*/
     }
 
     @Override
