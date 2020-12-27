@@ -142,7 +142,7 @@ public class SystemappRemover extends Activity {
         if (id == DELETE_DIALOG) {
             alert.setMessage(R.string.system_app_remover_message_delete)
                     .setCancelable(false)
-                    .setPositiveButton(R.string.ok,
+                    .setPositiveButton(R.string.dlg_ok,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                                     int id) {

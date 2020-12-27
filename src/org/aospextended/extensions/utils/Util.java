@@ -197,7 +197,7 @@ public abstract class Util {
         new AlertDialog.Builder(context)
                 .setTitle(R.string.systemui_restart_title)
                 .setMessage(R.string.systemui_restart_message)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.dlg_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         restartSystemUi(context);
                     }
