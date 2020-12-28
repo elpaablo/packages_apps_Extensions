@@ -50,11 +50,6 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
-import org.aospextended.extensions.aexstats.Constants;
-import org.aospextended.extensions.aexstats.RequestInterface;
-import org.aospextended.extensions.aexstats.models.ServerRequest;
-import org.aospextended.extensions.aexstats.models.ServerResponse;
-import org.aospextended.extensions.aexstats.models.StatsData;
 import org.aospextended.extensions.categories.Lockscreen;
 import org.aospextended.extensions.categories.NavigationAndRecents;
 import org.aospextended.extensions.categories.NotificationsPanel;
@@ -90,32 +85,27 @@ public class Extensions extends SettingsPreferenceFragment implements
 
         final BottomNavigationView bottomNavigation = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
 
-    bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-	  public boolean onNavigationItemSelected(MenuItem item) {
-
-             if (item.getItemId() == bottomNavigation.getSelectedItemId()) {
-
-               return false;
-
-             } else {
-
-        if (item.getItemId() == R.id.status_bar_category) {
-                switchFrag(new StatusBar());
-        } else if (item.getItemId() == R.id.notifications_panel_category) {
-                switchFrag(new NotificationsPanel());
-        } else if (item.getItemId() == R.id.navigation_and_recents_category) {
-                switchFrag(new NavigationAndRecents());
-        } else if (item.getItemId() == R.id.lockscreen_category) {
-                switchFrag(new Lockscreen());
-        } else if (item.getItemId() == R.id.system_category) {
-                switchFrag(new System());
-        }
-        return true;
-        }
-    }
-    });
-        
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+	    public boolean onNavigationItemSelected(MenuItem item) {
+                if (item.getItemId() == bottomNavigation.getSelectedItemId()) {
+                    return false;
+                } else {
+                    if (item.getItemId() == R.id.status_bar_category) {
+                    switchFrag(new StatusBar());
+                    } else if (item.getItemId() == R.id.notifications_panel_category) {
+                    switchFrag(new NotificationsPanel());
+                    } else if (item.getItemId() == R.id.navigation_and_recents_category) {
+                    switchFrag(new NavigationAndRecents());
+                    } else if (item.getItemId() == R.id.lockscreen_category) {
+                    switchFrag(new Lockscreen());
+                    } else if (item.getItemId() == R.id.system_category) {
+                    switchFrag(new System());
+                    }
+                    return true;
+                }
+            }
+        });
 
         setHasOptionsMenu(true);
         bottomNavigation.setSelectedItemId(R.id.status_bar_category);
@@ -135,70 +125,12 @@ public class Extensions extends SettingsPreferenceFragment implements
         getActivity().setTitle(R.string.extensions_title);
         ContentResolver resolver = getActivity().getContentResolver();
         mCompositeDisposable = new CompositeDisposable();
-        pref = getActivity().getSharedPreferences("aexStatsPrefs", Context.MODE_PRIVATE);
-        if (!pref.getString(Constants.LAST_EXTENDED_FINGERPRINT, "null").equals(Build.EXTENDED_FINGERPRINT)
-                || pref.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
-            pushStats();
-        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         
-    }
-
-    private void pushStats() {
-        //Anonymous Stats
-
-        if (!TextUtils.isEmpty(SystemProperties.get(Constants.KEY_DEVICE))) { //Push only if installed ROM is AEX
-            RequestInterface requestInterface = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build().create(RequestInterface.class);
-
-            StatsData stats = new StatsData();
-            stats.setDevice(stats.getDevice());
-            stats.setModel(stats.getModel());
-            stats.setVersion(stats.getVersion());
-            stats.setBuildType(stats.getBuildType());
-            stats.setBuildName(stats.getBuildName());
-            stats.setCountryCode(stats.getCountryCode(getActivity()));
-            stats.setBuildDate(stats.getBuildDate());
-            ServerRequest request = new ServerRequest();
-            request.setOperation(Constants.PUSH_OPERATION);
-            request.setStats(stats);
-            mCompositeDisposable.add(requestInterface.operation(request)
-                    .observeOn(AndroidSchedulers.mainThread(),false,100)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(this::handleResponse, this::handleError));
-        } else {
-            Log.d(Constants.TAG, "This ain't AEX!");
-        }
-
-    }
-
-    private void handleResponse(ServerResponse resp) {
-
-        if (resp.getResult().equals(Constants.SUCCESS)) {
-
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean(Constants.IS_FIRST_LAUNCH, false);
-            editor.putString(Constants.LAST_EXTENDED_FINGERPRINT, Build.EXTENDED_FINGERPRINT);
-            editor.apply();
-            Log.d(Constants.TAG, "push successful");
-
-        } else {
-            Log.d(Constants.TAG, resp.getMessage());
-        }
-
-    }
-
-    private void handleError(Throwable error) {
-
-        Log.d(Constants.TAG, error.toString());
-
     }
 
     @Override
