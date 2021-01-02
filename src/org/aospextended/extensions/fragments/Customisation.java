@@ -41,31 +41,32 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.WindowManagerGlobal;
 import android.view.IWindowManager;
+import android.view.LayoutInflater;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManagerGlobal;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import java.util.Locale;
-import android.text.TextUtils;
-import android.view.View;
-
+import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.Utils;
 
 import com.android.internal.util.aospextended.AEXUtils;
 import com.android.internal.util.aospextended.ThemeUtils;
 
-import org.aospextended.extensions.preference.FontListPreference;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.aospextended.extensions.categories.System;
+import org.aospextended.extensions.preference.FontListPreference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -173,7 +174,7 @@ public class Customisation extends SettingsPreferenceFragment implements OnPrefe
             labels = mThemeUtils.getThemeLabels();
 
             int mCurrentTheme = Settings.System.getIntForUser(mContext.getContentResolver(),
-                    Settings.System.SYSTEM_THEME_STYLE, 1, USER_SYSTEM);
+                    Settings.System.SYSTEM_THEME_STYLE, 2, USER_SYSTEM);
             currentPackageName = pkgs.get(mCurrentTheme - 1);
         }
 

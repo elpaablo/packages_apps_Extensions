@@ -63,12 +63,16 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Extensions extends SettingsPreferenceFragment implements   
+public class Extensions extends SettingsPreferenceFragment implements
        Preference.OnPreferenceChangeListener {
 
     private static final int MENU_HELP  = 0;
     private SharedPreferences pref;
+    private Context mContext;
     private CompositeDisposable mCompositeDisposable;
+
+    private static String TAG = "SettingsPreferenceFragment";
+    private static final String PREF_CURRENT_FRAGMENT_KEY = "extensions_current_fragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,36 +89,45 @@ public class Extensions extends SettingsPreferenceFragment implements
 
         final BottomNavigationView bottomNavigation = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
 
+        pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        int currentFragID = pref.getInt(PREF_CURRENT_FRAGMENT_KEY, R.id.status_bar_category);
+
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
 	    public boolean onNavigationItemSelected(MenuItem item) {
-                if (item.getItemId() == bottomNavigation.getSelectedItemId()) {
+                int fragID = item.getItemId();
+                if(fragID == bottomNavigation.getSelectedItemId())
                     return false;
-                } else {
-                    if (item.getItemId() == R.id.status_bar_category) {
-                    switchFrag(new StatusBar());
-                    } else if (item.getItemId() == R.id.notifications_panel_category) {
-                    switchFrag(new NotificationsPanel());
-                    } else if (item.getItemId() == R.id.navigation_and_recents_category) {
-                    switchFrag(new NavigationAndRecents());
-                    } else if (item.getItemId() == R.id.lockscreen_category) {
-                    switchFrag(new Lockscreen());
-                    } else if (item.getItemId() == R.id.system_category) {
-                    switchFrag(new System());
-                    }
-                    return true;
-                }
+
+                switchFrag(fragID);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt(PREF_CURRENT_FRAGMENT_KEY, fragID);
+                editor.apply();
+                return true;
             }
         });
 
         setHasOptionsMenu(true);
-        bottomNavigation.setSelectedItemId(R.id.status_bar_category);
-        switchFrag(new StatusBar());
+        bottomNavigation.setSelectedItemId(currentFragID);
+        switchFrag(currentFragID);
         bottomNavigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         return view;
     }
 
-    private void switchFrag(Fragment fragment) {
+    private void switchFrag(int itemID) {
+        if(itemID <= 0) return;
+        Fragment fragment = new Fragment();
+        if (itemID == R.id.status_bar_category) {
+            fragment = new StatusBar();
+        } else if (itemID == R.id.notifications_panel_category) {
+            fragment = new NotificationsPanel();
+        } else if (itemID == R.id.navigation_and_recents_category) {
+            fragment = new NavigationAndRecents();
+        } else if (itemID == R.id.lockscreen_category) {
+            fragment = new Lockscreen();
+        } else if (itemID == R.id.system_category) {
+            fragment = new System();
+        }  else return;
         getFragmentManager().beginTransaction().replace(R.id.fragment_frame, fragment).commit();
     }
 
@@ -130,7 +143,7 @@ public class Extensions extends SettingsPreferenceFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
+
     }
 
     @Override
@@ -220,4 +233,3 @@ public class Extensions extends SettingsPreferenceFragment implements
         }
     }
 }
-
