@@ -20,7 +20,11 @@
     <string name="notification_headers_title">Notification Headers</string>
     <string name="notification_headers_summary">Show headers in the notification shade\nRequires a SystemUI restart</string>
     
-    <!-- System app remover -->
+    <!-- System misc. -->
+    <string name="system_misc_title">Misc.</string>
+    <string name="aicp_category_title">AICP extensions</string>
+    
+    <!-- AICP System app remover -->
     <string name="system_app_remover_title">Uninstaller</string>
     <string name="system_app_remover_summary">Remove pre-installed apps</string>
     <string name="system_app_remover_message_delete">Are you sure you want to delete this app?</string>
@@ -32,6 +36,10 @@
     <string name="systemui_restart_title">SystemUI restart required</string>
     <string name="systemui_restart_message">For all changes to take effect, a SystemUI restart is required. Restart SystemUI now?</string>
     <string name="cannot_get_su">Action failed because of missing superuser access</string>
+    
+    <!-- AICP ad-blocker -->
+    <string name="hosts_block_title">Ad-block</string>
+    <string name="hosts_block_summary">Block ads with a modified hosts file. Turn off to use third party solutions or if apps cause issues.</string>
     
     <!-- Omni Switch -->
     <string name="keys_action_app_switch_defaut">Default</string>

@@ -26,5 +26,5 @@
         android:height="@dimen/dashboard_tile_foreground_image_size"
         android:start="@dimen/dashboard_tile_foreground_image_inset"
         android:top="@dimen/dashboard_tile_foreground_image_inset"
-        android:drawable="@drawable/ic_system_app_remover" />
+        android:drawable="@drawable/ic_system_misc" />
 </layer-list>
