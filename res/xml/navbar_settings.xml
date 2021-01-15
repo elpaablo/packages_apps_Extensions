@@ -57,7 +57,7 @@
         <Preference
             android:key="back_key_long_press_custom_app"
             android:title="@string/long_press_custom_app_title"
-            android:icon="@drawable/custom_action_app_icon"
+            android:icon="@drawable/ic_menu_add_white"
             android:summary="">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.settings"
@@ -74,7 +74,7 @@
         <Preference
             android:key="back_key_double_tap_custom_app"
             android:title="@string/double_tap_custom_app_title"
-            android:icon="@drawable/custom_action_app_icon"
+            android:icon="@drawable/ic_menu_add_white"
             android:summary="">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.settings"
@@ -96,7 +96,7 @@
         <Preference
             android:key="home_key_long_press_custom_app"
             android:title="@string/long_press_custom_app_title"
-            android:icon="@drawable/custom_action_app_icon"
+            android:icon="@drawable/ic_menu_add_white"
             android:summary="">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.settings"
@@ -112,7 +112,7 @@
         <Preference
             android:key="home_key_double_tap_custom_app"
             android:title="@string/double_tap_custom_app_title"
-            android:icon="@drawable/custom_action_app_icon"
+            android:icon="@drawable/ic_menu_add_white"
             android:summary="">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.settings"
@@ -134,7 +134,7 @@
         <Preference
             android:key="app_switch_key_long_press_custom_app"
             android:title="@string/long_press_custom_app_title"
-            android:icon="@drawable/custom_action_app_icon"
+            android:icon="@drawable/ic_menu_add_white"
             android:summary="">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.settings"
@@ -150,7 +150,7 @@
         <Preference
             android:key="app_switch_key_double_tap_custom_app"
             android:title="@string/double_tap_custom_app_title"
-            android:icon="@drawable/custom_action_app_icon"
+            android:icon="@drawable/ic_menu_add_white"
             android:summary="">
             <intent android:action="android.intent.action.MAIN"
                 android:targetPackage="com.android.settings"

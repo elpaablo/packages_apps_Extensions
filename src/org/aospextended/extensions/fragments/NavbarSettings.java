@@ -74,6 +74,8 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
     private static final String KEY_CATEGORY_MENU          = "menu_key";
     private static final String KEY_CATEGORY_ASSIST        = "assist_key";
     private static final String KEY_CATEGORY_APP_SWITCH    = "app_switch_key";
+    
+    private static final String CUSTOM_APP_ACTION_INDEX = "17";
 
     private ListPreference mBackLongPress;
     private ListPreference mBackDoubleTap;
@@ -264,18 +266,27 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
         }
 
         customAppCheck();
-        mBackLongPressCustomApp.setVisible(mBackLongPress.getEntryValues()
-                [backlongpress].equals("17"));
-        mBackDoubleTapCustomApp.setVisible(mBackDoubleTap.getEntryValues()
-                [backdoubletap].equals("17"));
-        mHomeLongPressCustomApp.setVisible(mHomeLongPress.getEntryValues()
-                [homelongpress].equals("17"));
-        mHomeDoubleTapCustomApp.setVisible(mHomeDoubleTap.getEntryValues()
-                [homedoubletap].equals("17"));
-        mAppSwitchLongPressCustomApp.setVisible(mAppSwitchLongPress.getEntryValues()
-                [appswitchlongpress].equals("17"));
-        mAppSwitchDoubleTapCustomApp.setVisible(mAppSwitchDoubleTap.getEntryValues()
-                [appswitchdoubletap].equals("17"));
+        
+        boolean visible = mBackLongPress.getEntryValues()[backlongpress].equals(CUSTOM_APP_ACTION_INDEX);
+        mBackLongPressCustomApp.setVisible(visible);
+        if (visible) {
+        
+        }
+        
+        visible = mBackDoubleTap.getEntryValues()[backdoubletap].equals(CUSTOM_APP_ACTION_INDEX);
+        mBackDoubleTapCustomApp.setVisible(visible);
+        
+        visible = mHomeLongPress.getEntryValues()[homelongpress].equals(CUSTOM_APP_ACTION_INDEX);
+        mHomeLongPressCustomApp.setVisible(visible);
+        
+        visible = mHomeDoubleTap.getEntryValues()[homedoubletap].equals(CUSTOM_APP_ACTION_INDEX);
+        mHomeDoubleTapCustomApp.setVisible(visible);
+        
+        visible = mAppSwitchLongPress.getEntryValues()[appswitchlongpress].equals(CUSTOM_APP_ACTION_INDEX);
+        mAppSwitchLongPressCustomApp.setVisible(visible);
+        
+        mAppSwitchDoubleTap.getEntryValues()[appswitchdoubletap].equals(CUSTOM_APP_ACTION_INDEX);
+        mAppSwitchDoubleTapCustomApp.setVisible(visible);
 
 
         /* OMNI Switch  */
@@ -347,7 +358,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
                     mBackLongPress.getEntries()[index]);
             customAppCheck();
             mBackLongPressCustomApp.setVisible(mBackLongPress.getEntryValues()
-                    [index].equals("17"));
+                    [index].equals(CUSTOM_APP_ACTION_INDEX));
             return true;
         } else if (preference == mBackDoubleTap) {
             int value = Integer.parseInt((String) objValue);
@@ -358,7 +369,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
             mBackDoubleTap.setSummary(
                     mBackDoubleTap.getEntries()[index]);
             mBackDoubleTapCustomApp.setVisible(mBackDoubleTap.getEntryValues()
-                    [index].equals("17"));
+                    [index].equals(CUSTOM_APP_ACTION_INDEX));
             return true;
         } else if (preference == mHomeLongPress) {
             int value = Integer.parseInt((String) objValue);
@@ -369,7 +380,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
             mHomeLongPress.setSummary(
                     mHomeLongPress.getEntries()[index]);
             mHomeLongPressCustomApp.setVisible(mHomeLongPress.getEntryValues()
-                    [index].equals("17"));
+                    [index].equals(CUSTOM_APP_ACTION_INDEX));
             return true;
         } else if (preference == mHomeDoubleTap) {
             int value = Integer.parseInt((String) objValue);
@@ -380,7 +391,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
             mHomeDoubleTap.setSummary(
                     mHomeDoubleTap.getEntries()[index]);
             mHomeDoubleTapCustomApp.setVisible(mHomeDoubleTap.getEntryValues()
-                    [index].equals("17"));
+                    [index].equals(CUSTOM_APP_ACTION_INDEX));
             return true;
         } else if (preference == mAppSwitchLongPress) {
             int value = Integer.parseInt((String) objValue);
@@ -391,7 +402,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
             mAppSwitchLongPress.setSummary(
                     mAppSwitchLongPress.getEntries()[index]);
             mAppSwitchLongPressCustomApp.setVisible(mAppSwitchLongPress.getEntryValues()
-                    [index].equals("17"));
+                    [index].equals(CUSTOM_APP_ACTION_INDEX));
             return true;
         } else if (preference == mAppSwitchDoubleTap) {
             int value = Integer.parseInt((String) objValue);
@@ -402,7 +413,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
             mAppSwitchDoubleTap.setSummary(
                     mAppSwitchDoubleTap.getEntries()[index]);
             mAppSwitchDoubleTapCustomApp.setVisible(mAppSwitchDoubleTap.getEntryValues()
-                    [index].equals("17"));
+                    [index].equals(CUSTOM_APP_ACTION_INDEX));
             return true;
         } else if (preference == mMenuLongPress) {
             int value = Integer.parseInt((String) objValue);

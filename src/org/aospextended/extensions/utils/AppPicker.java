@@ -52,9 +52,7 @@ public class AppPicker extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(android.R.layout.list_content);
-        setTitle(getResources().getString(R.string.active_edge_app_select_title));
-
+        setContentView(R.layout.app_list);
         packageManager = getPackageManager();
         new LoadApplications().execute();
     }
@@ -74,8 +72,8 @@ public class AppPicker extends ListActivity {
     @Override
     public void onBackPressed() {
         if (mIsActivitiesList) {
+            //setTitle();
             setListAdapter(listadapter);
-            setTitle(getResources().getString(R.string.active_edge_app_select_title));
             // Reset the dialog again
             mIsActivitiesList = false;
         } else {
@@ -171,8 +169,9 @@ public class AppPicker extends ListActivity {
             mIsActivitiesList = false;
             return;
         }
+        
+        //setTitle();
 
-        setTitle(getResources().getString(R.string.active_edge_activity_select_title));
         // switch to a new adapter to show app activities
         ActivitiesAdapter adapter = new ActivitiesAdapter(this, R.layout.app_list_item, list, packageManager);
         setListAdapter(adapter);
@@ -222,7 +221,7 @@ public class AppPicker extends ListActivity {
             if (data != null) {
                 TextView appName = view.findViewById(R.id.app_name);
                 ImageView iconView = view.findViewById(R.id.app_icon);
-
+		
                 appName.setText(data.loadLabel(packageManager));
                 iconView.setImageDrawable(data.loadIcon(packageManager));
             }
@@ -268,11 +267,11 @@ public class AppPicker extends ListActivity {
             if (view == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = layoutInflater.inflate(R.layout.simple_list_item_1, null);
+                view = layoutInflater.inflate(R.layout.app_list_item_1, null);
             }
 
             if (data != null) {
-                TextView appName = view.findViewById(android.R.id.text1);
+                TextView appName = view.findViewById(R.id.activity_name);
 
                 String name = /*data.loadLabel(packageManager).toString();
                 if (name == null) {
