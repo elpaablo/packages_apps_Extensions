@@ -84,6 +84,10 @@ public class SystemappRemover extends Activity {
         safetyList.add("SettingsProvider");
         safetyList.add("SystemUI");
         safetyList.add("TeleService");
+        safetyList.add("CustomDoze");
+        safetyList.add("OmniSwitch");
+        safetyList.add("OmniJaws");
+        safetyList.add("Seedvault");
 
         File system = new File(systemPath);
         File systemPriv = new File(systemPrivPath);
