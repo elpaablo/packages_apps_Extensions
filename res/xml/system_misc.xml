@@ -34,6 +34,16 @@
            android:defaultValue="false" /> 
 
     </PreferenceCategory>
+        
+    <PreferenceCategory
+        settings:key="system_custom_category"
+        settings:title="@string/system_custom_title">
+        <SwitchPreference
+             settings:key="kernel_profiles_enabled"
+             settings:title="@string/system_custom_kernel_profiles_title"
+             settings:summary="@string/system_custom_kernel_profiles_summary" />
+        
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

@@ -21,6 +21,8 @@ import android.os.Handler;
 import android.os.SystemProperties;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
+import android.provider.Settings;
+import android.provider.Settings.Secure;
 
 import java.net.InetAddress;
 
@@ -34,8 +36,10 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
 
     private static final String PREF_SYSTEM_APP_REMOVER = "system_app_remover";
     private static final String PREF_ADBLOCK = "persist.aicp.hosts_block";
+    public static final String KERNEL_PROFILES_ENABLED_KEY = "kernel_profiles_enabled";
     
-     private Handler mHandler = new Handler();
+    private SwitchPreference mKernelProfilesPreference;
+    private Handler mHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,11 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
         Util.requireRoot(getActivity(), systemAppRemover);
 
         findPreference(PREF_ADBLOCK).setOnPreferenceChangeListener(this);
+        
+        mKernelProfilesPreference = (SwitchPreference) findPreference(KERNEL_PROFILES_ENABLED_KEY);
+        mKernelProfilesPreference.setChecked(Settings.Secure.getIntForUser(getContentResolver(),
+                    Settings.Secure.KERNEL_PROFILES_ENABLED, 1, UserHandle.USER_CURRENT) == 1);
+
     }
 
     @Override
@@ -61,7 +70,15 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-       if (PREF_ADBLOCK.equals(preference.getKey())) {
+        
+        if (preference == mKernelProfilesPreference) {
+            boolean value = (Boolean) objValue;
+            mKernelProfilesPreference.setChecked(value);
+            Settings.Secure.putInt(getContentResolver(),
+                Settings.Secure.KERNEL_PROFILES_ENABLED, value ? 1 : 0);
+            return true;
+        } 
+        else if (PREF_ADBLOCK.equals(preference.getKey())) {
             // Flush the java VM DNS cache to re-read the hosts file.
             // Delay to ensure the value is persisted before we refresh
             mHandler.postDelayed(new Runnable() {
@@ -71,8 +88,7 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
                     }
             }, 1000);
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 }
