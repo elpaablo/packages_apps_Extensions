@@ -34,6 +34,7 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
 
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
+import com.android.internal.util.aospextended.AEXUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
@@ -306,6 +307,8 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
         mNavbarRecentsStyle.setSummary(mNavbarRecentsStyle.getEntry());
         mNavbarRecentsStyle.setOnPreferenceChangeListener(this);
 
+        mLayoutSettings.setEnabled(!AEXUtils.isOverlayEnabled("com.android.internal.systemui.navbar.gestural"));
+
     }
 
     @Override
@@ -341,6 +344,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
                     mIsNavSwitchingMode = false;
                 }
             }, 1500);
+            mLayoutSettings.setEnabled(!AEXUtils.isOverlayEnabled("com.android.internal.systemui.navbar.gestural"));
             return true;
         } else if (preference == mNavbarRecentsStyle) {
             int value = Integer.valueOf((String) objValue);
