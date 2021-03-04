@@ -16,11 +16,15 @@
 
 package org.aospextended.extensions.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.os.SystemProperties;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.SwitchPreference;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
 
@@ -36,10 +40,14 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
 
     private static final String PREF_SYSTEM_APP_REMOVER = "system_app_remover";
     private static final String PREF_ADBLOCK = "persist.aicp.hosts_block";
-    public static final String KERNEL_PROFILES_ENABLED_KEY = "kernel_profiles_enabled";
+    private static final String KERNEL_PROFILE_KEY = "sys.kernel.profile";
+    private static final int PROFILE_DEFAULT = 2; //balanced
+    private static final int PROFILE_NONE = 0; //disabled
+    private static final String PREF_PROFILE = "kernel_profile";
     
     private SwitchPreference mKernelProfilesPreference;
     private Handler mHandler = new Handler();
+    private SharedPreferences pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,10 +60,10 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
 
         findPreference(PREF_ADBLOCK).setOnPreferenceChangeListener(this);
         
-        mKernelProfilesPreference = (SwitchPreference) findPreference(KERNEL_PROFILES_ENABLED_KEY);
-        mKernelProfilesPreference.setChecked(Settings.Secure.getIntForUser(getContentResolver(),
-                    Settings.Secure.KERNEL_PROFILES_ENABLED, 1, UserHandle.USER_CURRENT) == 1);
-
+        int profile = SystemProperties.getInt(KERNEL_PROFILE_KEY, PROFILE_DEFAULT);
+        mKernelProfilesPreference = (SwitchPreference) findPreference(KERNEL_PROFILE_KEY);
+        mKernelProfilesPreference.setChecked(profile > 0);
+        mKernelProfilesPreference.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -72,10 +80,21 @@ public class SystemMisc extends SettingsPreferenceFragment implements OnPreferen
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         
         if (preference == mKernelProfilesPreference) {
+            pref = getActivity().getPreferences(Context.MODE_PRIVATE);
             boolean value = (Boolean) objValue;
             mKernelProfilesPreference.setChecked(value);
-            Settings.Secure.putInt(getContentResolver(),
-                Settings.Secure.KERNEL_PROFILES_ENABLED, value ? 1 : 0);
+            
+            if (value){ //enable kernel profiles and restore saved profile
+                 SystemProperties.set(KERNEL_PROFILE_KEY, "" + 
+                         pref.getInt(PREF_PROFILE, PROFILE_DEFAULT));
+            }
+            else{ //disable kernel profiles and save current profile
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt(PREF_PROFILE, SystemProperties.getInt(
+                        KERNEL_PROFILE_KEY, PROFILE_DEFAULT));
+                editor.apply();
+                SystemProperties.set(KERNEL_PROFILE_KEY, "" + PROFILE_NONE); 
+            }
             return true;
         } 
         else if (PREF_ADBLOCK.equals(preference.getKey())) {
