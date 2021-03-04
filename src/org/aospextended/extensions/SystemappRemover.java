@@ -58,6 +58,10 @@ public class SystemappRemover extends Activity {
     static final boolean DEBUG = true;
     public final String systemPath = "/system/app/";
     public final String systemPrivPath = "/system/priv-app/";
+    public final String systemExtPath = "/system/system_ext/app/";
+    public final String systemExtPrivPath = "/system/system_ext/priv-app/";
+    public final String productPath = "/system/product/app/";
+    public final String productPrivPath = "/system/product/priv-app/";
     protected Process superUser;
 
     @Override
@@ -91,10 +95,20 @@ public class SystemappRemover extends Activity {
 
         File system = new File(systemPath);
         File systemPriv = new File(systemPrivPath);
+        File systemExt = new File(systemExtPath);
+        File systemExtPriv = new File(systemExtPrivPath);
+        File product = new File(productPath);
+        File productPriv = new File(productPrivPath);
+        
         String[] sysappArray = combine(system.list(), systemPriv.list());
+        String[] sysExtAppArray = combine(systemExt.list(), systemExtPriv.list());
+        String[] productArray = combine(product.list(), productPriv.list());
+        
+        String[] allAppArray = combine(combine(sysappArray, sysExtAppArray), productArray);
+        
         mSysApp = new ArrayList<String>(
-                Arrays.asList(sysappArray));
-
+                Arrays.asList(allAppArray));
+        
         filterOdex();
 
         mSysApp.removeAll(safetyList);
