@@ -140,3 +140,4 @@ public class Traffic extends SettingsPreferenceFragment implements OnPreferenceC
                 Settings.System.NETWORK_TRAFFIC_TYPE, 0) != 0;
     }
 }
+

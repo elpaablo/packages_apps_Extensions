@@ -188,3 +188,4 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         }
     }
 }
+

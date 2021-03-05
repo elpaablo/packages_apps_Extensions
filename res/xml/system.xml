@@ -49,4 +49,10 @@
             android:icon="@drawable/ic_sub_gaming"
             android:title="@string/gaming_mode_title" />
 
+          <org.aospextended.extensions.preference.CardviewPreference
+            android:key="system_misc"
+            android:title="@string/system_misc_title"
+            android:icon="@drawable/ic_sub_system_misc"
+            android:fragment="org.aospextended.extensions.fragments.SystemMisc" />
+
 </PreferenceScreen>

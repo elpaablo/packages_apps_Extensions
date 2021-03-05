@@ -50,11 +50,6 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
-import org.aospextended.extensions.aexstats.Constants;
-import org.aospextended.extensions.aexstats.RequestInterface;
-import org.aospextended.extensions.aexstats.models.ServerRequest;
-import org.aospextended.extensions.aexstats.models.ServerResponse;
-import org.aospextended.extensions.aexstats.models.StatsData;
 import org.aospextended.extensions.categories.Lockscreen;
 import org.aospextended.extensions.categories.NavigationAndRecents;
 import org.aospextended.extensions.categories.NotificationsPanel;
@@ -68,12 +63,16 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Extensions extends SettingsPreferenceFragment implements   
+public class Extensions extends SettingsPreferenceFragment implements
        Preference.OnPreferenceChangeListener {
 
     private static final int MENU_HELP  = 0;
     private SharedPreferences pref;
+    private Context mContext;
     private CompositeDisposable mCompositeDisposable;
+
+    private static String TAG = "SettingsPreferenceFragment";
+    private static final String PREF_CURRENT_FRAGMENT_KEY = "extensions_current_fragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,41 +89,45 @@ public class Extensions extends SettingsPreferenceFragment implements
 
         final BottomNavigationView bottomNavigation = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
 
-    bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-	  public boolean onNavigationItemSelected(MenuItem item) {
+        pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        int currentFragID = pref.getInt(PREF_CURRENT_FRAGMENT_KEY, R.id.status_bar_category);
 
-             if (item.getItemId() == bottomNavigation.getSelectedItemId()) {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+	    public boolean onNavigationItemSelected(MenuItem item) {
+                int fragID = item.getItemId();
+                if(fragID == bottomNavigation.getSelectedItemId())
+                    return false;
 
-               return false;
-
-             } else {
-
-        if (item.getItemId() == R.id.status_bar_category) {
-                switchFrag(new StatusBar());
-        } else if (item.getItemId() == R.id.notifications_panel_category) {
-                switchFrag(new NotificationsPanel());
-        } else if (item.getItemId() == R.id.navigation_and_recents_category) {
-                switchFrag(new NavigationAndRecents());
-        } else if (item.getItemId() == R.id.lockscreen_category) {
-                switchFrag(new Lockscreen());
-        } else if (item.getItemId() == R.id.system_category) {
-                switchFrag(new System());
-        }
-        return true;
-        }
-    }
-    });
-        
+                switchFrag(fragID);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt(PREF_CURRENT_FRAGMENT_KEY, fragID);
+                editor.apply();
+                return true;
+            }
+        });
 
         setHasOptionsMenu(true);
-        bottomNavigation.setSelectedItemId(R.id.status_bar_category);
-        switchFrag(new StatusBar());
+        bottomNavigation.setSelectedItemId(currentFragID);
+        switchFrag(currentFragID);
         bottomNavigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         return view;
     }
 
-    private void switchFrag(Fragment fragment) {
+    private void switchFrag(int itemID) {
+        if(itemID <= 0) return;
+        Fragment fragment = new Fragment();
+        if (itemID == R.id.status_bar_category) {
+            fragment = new StatusBar();
+        } else if (itemID == R.id.notifications_panel_category) {
+            fragment = new NotificationsPanel();
+        } else if (itemID == R.id.navigation_and_recents_category) {
+            fragment = new NavigationAndRecents();
+        } else if (itemID == R.id.lockscreen_category) {
+            fragment = new Lockscreen();
+        } else if (itemID == R.id.system_category) {
+            fragment = new System();
+        }  else return;
         getFragmentManager().beginTransaction().replace(R.id.fragment_frame, fragment).commit();
     }
 
@@ -135,69 +138,11 @@ public class Extensions extends SettingsPreferenceFragment implements
         getActivity().setTitle(R.string.extensions_title);
         ContentResolver resolver = getActivity().getContentResolver();
         mCompositeDisposable = new CompositeDisposable();
-        pref = getActivity().getSharedPreferences("aexStatsPrefs", Context.MODE_PRIVATE);
-        if (!pref.getString(Constants.LAST_EXTENDED_FINGERPRINT, "null").equals(Build.EXTENDED_FINGERPRINT)
-                || pref.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
-            pushStats();
-        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
-    }
-
-    private void pushStats() {
-        //Anonymous Stats
-
-        if (!TextUtils.isEmpty(SystemProperties.get(Constants.KEY_DEVICE))) { //Push only if installed ROM is AEX
-            RequestInterface requestInterface = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build().create(RequestInterface.class);
-
-            StatsData stats = new StatsData();
-            stats.setDevice(stats.getDevice());
-            stats.setModel(stats.getModel());
-            stats.setVersion(stats.getVersion());
-            stats.setBuildType(stats.getBuildType());
-            stats.setBuildName(stats.getBuildName());
-            stats.setCountryCode(stats.getCountryCode(getActivity()));
-            stats.setBuildDate(stats.getBuildDate());
-            ServerRequest request = new ServerRequest();
-            request.setOperation(Constants.PUSH_OPERATION);
-            request.setStats(stats);
-            mCompositeDisposable.add(requestInterface.operation(request)
-                    .observeOn(AndroidSchedulers.mainThread(),false,100)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(this::handleResponse, this::handleError));
-        } else {
-            Log.d(Constants.TAG, "This ain't AEX!");
-        }
-
-    }
-
-    private void handleResponse(ServerResponse resp) {
-
-        if (resp.getResult().equals(Constants.SUCCESS)) {
-
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean(Constants.IS_FIRST_LAUNCH, false);
-            editor.putString(Constants.LAST_EXTENDED_FINGERPRINT, Build.EXTENDED_FINGERPRINT);
-            editor.apply();
-            Log.d(Constants.TAG, "push successful");
-
-        } else {
-            Log.d(Constants.TAG, resp.getMessage());
-        }
-
-    }
-
-    private void handleError(Throwable error) {
-
-        Log.d(Constants.TAG, error.toString());
 
     }
 
@@ -288,4 +233,3 @@ public class Extensions extends SettingsPreferenceFragment implements
         }
     }
 }
-

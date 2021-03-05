@@ -11,7 +11,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen 
+<PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/lockscreen_ui_title">
@@ -85,5 +85,24 @@
             android:summary="@string/lockscreen_visualizer_enable_summary" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="lockscreen_weather"
+        android:title="@string/lockscreen_weather_category">
+
+        <org.aospextended.extensions.preference.SystemSettingSwitchPreference
+            android:key="lockscreen_weather_enabled"
+            android:title="@string/lockscreen_weather_enabled_title"
+            android:summary="@string/lockscreen_weather_enabled_summary"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="omnijaws_settings"
+            android:title="@string/lockscreen_weather_settings_title"
+            android:summary="@string/lockscreen_weather_settings_summary"
+            android:fragment="org.aospextended.extensions.OmniJawsSettings" />
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>
