@@ -23,7 +23,7 @@
             android:key="navbar_settings"
             android:fragment="org.aospextended.extensions.NavbarSettings"
             android:icon="@drawable/ic_sub_navigation"
-            android:title="@string/navigationbar_settings_title" />
+            android:title="@string/system_navigation_title" />
 
          <org.aospextended.extensions.preference.CardviewPreference
             android:key="gesture_settings"

@@ -132,5 +132,12 @@
     <string name="status_bar_battery_text_position_right">Right of the icon</string>
     <string name="status_bar_battery_text_charging_title">Battery percentage when charging</string>
     <string name="status_bar_battery_text_charging_summary">Always display battery percentage when charging</string>
+    
+    <!-- Navigation settings -->
+    <string name="navigation_settings_title">Navigation settings</string>
+    <string name="system_navigation_title">System navigation</string>
+    <string name="gesture_system_navigation_title">System navigation gestures</string>
+    <string name="gesture_system_navigation_summary">Choose your navigation style</string>
+    <string name="navbar_settings_title">Navigation bar</string>
 
 </resources>

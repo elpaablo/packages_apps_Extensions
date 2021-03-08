@@ -14,193 +14,21 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
-    android:title="@string/navigationbar_settings_title">
-
-    <SwitchPreference
-        android:key="force_show_navbar"
-        android:title="@string/navigation_bar_title"
-        android:summary="@string/navigation_bar_summary" />
-
-    <Preference
-        android:key="gesture_system_navigation"
-        android:title="@string/system_navigation_title"
-        android:fragment="com.android.settings.gestures.SystemNavigationGestureSettings"
-        settings:controller="com.android.settings.gestures.SystemNavigationPreferenceController" />
-
-    <Preference
-        android:key="layout_settings"
-        android:title="@string/navigation_bar_layout_title"
-        android:summary="@string/navigation_bar_layout_summary"
-        android:dependency="force_show_navbar">
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="com.android.systemui"
-            android:targetClass="com.android.systemui.tuner.NavbarActivity" />
-    </Preference>
-
-    <org.aospextended.extensions.preference.SystemSettingSwitchPreference
-        android:key="navigation_bar_menu_arrow_keys"
-        android:title="@string/navigation_bar_arrow_keys_title"
-        android:summary="@string/navigation_bar_arrow_keys_summary"
-        android:dependency="force_show_navbar"
-        android:defaultValue="false" />
-
-    <org.aospextended.extensions.preference.SecureSettingSwitchPreference
-            android:key="kill_app_longpress_back"
-            android:title="@string/kill_app_longpress_back"
-            android:summary="@string/kill_app_longpress_back_summary"
-            android:defaultValue="false" />
+    android:title="@string/navigation_settings_title">
 
     <PreferenceCategory
-        android:key="back_key"
-        android:title="@string/back_key_title">
-
-        <ListPreference
-            android:key="back_key_long_press"
-            android:title="@string/long_press_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
+        android:key="gesture_system_navigation_category"
+        android:title="@string/system_navigation_title">
+        
         <Preference
-            android:key="back_key_long_press_custom_app"
-            android:title="@string/long_press_custom_app_title"
-            android:icon="@drawable/ic_menu_add_white"
-            android:summary="">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="org.aospextended.extensions.fragments.navbar.BackLongPress" />
-        </Preference>
-
-
-        <ListPreference
-            android:key="back_key_double_tap"
-            android:title="@string/double_tap_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <Preference
-            android:key="back_key_double_tap_custom_app"
-            android:title="@string/double_tap_custom_app_title"
-            android:icon="@drawable/ic_menu_add_white"
-            android:summary="">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="org.aospextended.extensions.fragments.navbar.BackDoubleTap" />
-        </Preference>
+            android:key="gesture_system_navigation"
+            android:title="@string/gesture_system_navigation_title"
+            android:summary="@string/gesture_system_navigation_summary"
+            android:fragment="com.android.settings.gestures.SystemNavigationGestureSettings"
+            settings:controller="com.android.settings.gestures.SystemNavigationPreferenceController" />
 
     </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="home_key"
-        android:title="@string/home_key_title">
-
-        <ListPreference
-            android:key="home_key_long_press"
-            android:title="@string/long_press_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <Preference
-            android:key="home_key_long_press_custom_app"
-            android:title="@string/long_press_custom_app_title"
-            android:icon="@drawable/ic_menu_add_white"
-            android:summary="">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="org.aospextended.extensions.fragments.navbar.HomeLongPress" />
-        </Preference>
-
-        <ListPreference
-            android:key="home_key_double_tap"
-            android:title="@string/double_tap_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <Preference
-            android:key="home_key_double_tap_custom_app"
-            android:title="@string/double_tap_custom_app_title"
-            android:icon="@drawable/ic_menu_add_white"
-            android:summary="">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="org.aospextended.extensions.fragments.navbar.HomeDoubleTap" />
-        </Preference>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="app_switch_key"
-        android:title="@string/app_switch_key_title">
-
-        <ListPreference
-            android:key="app_switch_key_long_press"
-            android:title="@string/long_press_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <Preference
-            android:key="app_switch_key_long_press_custom_app"
-            android:title="@string/long_press_custom_app_title"
-            android:icon="@drawable/ic_menu_add_white"
-            android:summary="">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="org.aospextended.extensions.fragments.navbar.AppSwitchLongPress" />
-        </Preference>
-
-        <ListPreference
-            android:key="app_switch_key_double_tap"
-            android:title="@string/double_tap_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <Preference
-            android:key="app_switch_key_double_tap_custom_app"
-            android:title="@string/double_tap_custom_app_title"
-            android:icon="@drawable/ic_menu_add_white"
-            android:summary="">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.settings"
-                android:targetClass="org.aospextended.extensions.fragments.navbar.AppSwitchDoubleTap" />
-        </Preference>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="menu_key"
-        android:title="@string/menu_key_title">
-
-        <ListPreference
-            android:key="menu_key_long_press"
-            android:title="@string/long_press_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <ListPreference
-            android:key="menu_key_double_tap"
-            android:title="@string/double_tap_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="assist_key"
-        android:title="@string/assist_key_title">
-
-        <ListPreference
-            android:key="assist_key_long_press"
-            android:title="@string/long_press_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-        <ListPreference
-            android:key="assist_key_double_tap"
-            android:title="@string/double_tap_title"
-            android:entries="@array/action_entries"
-            android:entryValues="@array/action_values" />
-
-    </PreferenceCategory>
-
+    
     <PreferenceCategory
         android:title="@string/keys_action_omniswitch_short">
 
@@ -217,5 +45,190 @@
             android:summary="@string/recents_style_info_title" />
 
     </PreferenceCategory>
+    
+        
+    <PreferenceCategory
+        android:key="navbar_category"
+        android:title="@string/home_key_title">
+    
+        <SwitchPreference
+            android:key="force_show_navbar"
+            android:title="@string/navigation_bar_title"
+            android:summary="@string/navigation_bar_summary" />
 
+        <Preference
+            android:key="layout_settings"
+            android:title="@string/navigation_bar_layout_title"
+            android:summary="@string/navigation_bar_layout_summary"
+            android:dependency="force_show_navbar">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.systemui"
+                android:targetClass="com.android.systemui.tuner.NavbarActivity" />
+        </Preference>
+
+        <org.aospextended.extensions.preference.SystemSettingSwitchPreference
+            android:key="navigation_bar_menu_arrow_keys"
+            android:title="@string/navigation_bar_arrow_keys_title"
+            android:summary="@string/navigation_bar_arrow_keys_summary"
+            android:dependency="force_show_navbar"
+            android:defaultValue="false" />
+
+        <org.aospextended.extensions.preference.SecureSettingSwitchPreference
+                android:key="kill_app_longpress_back"
+            android:title="@string/kill_app_longpress_back"
+            android:summary="@string/kill_app_longpress_back_summary"
+            android:defaultValue="false" />
+
+        <PreferenceCategory
+            android:key="back_key"
+            android:title="@string/back_key_title">
+
+            <ListPreference
+                android:key="back_key_long_press"
+                android:title="@string/long_press_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <Preference
+                android:key="back_key_long_press_custom_app"
+                android:title="@string/long_press_custom_app_title"
+                android:icon="@drawable/ic_menu_add_white"
+                android:summary="">
+                <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="org.aospextended.extensions.fragments.navbar.BackLongPress" />
+            </Preference>
+
+
+            <ListPreference
+                android:key="back_key_double_tap"
+                android:title="@string/double_tap_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <Preference
+                android:key="back_key_double_tap_custom_app"
+                android:title="@string/double_tap_custom_app_title"
+                android:icon="@drawable/ic_menu_add_white"
+                android:summary="">
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.settings"
+                android:targetClass="org.aospextended.extensions.fragments.navbar.BackDoubleTap" />
+            </Preference>
+
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="home_key"
+            android:title="@string/home_key_title">
+
+            <ListPreference
+                android:key="home_key_long_press"
+                android:title="@string/long_press_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <Preference
+                android:key="home_key_long_press_custom_app"
+                android:title="@string/long_press_custom_app_title"
+                android:icon="@drawable/ic_menu_add_white"
+                android:summary="">
+                <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="org.aospextended.extensions.fragments.navbar.HomeLongPress" />
+            </Preference>
+
+            <ListPreference
+                android:key="home_key_double_tap"
+                android:title="@string/double_tap_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <Preference
+                android:key="home_key_double_tap_custom_app"
+                android:title="@string/double_tap_custom_app_title"
+                android:icon="@drawable/ic_menu_add_white"
+                android:summary="">
+                <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="org.aospextended.extensions.fragments.navbar.HomeDoubleTap" />
+            </Preference>
+
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="app_switch_key"
+            android:title="@string/app_switch_key_title">
+
+            <ListPreference
+                android:key="app_switch_key_long_press"
+                android:title="@string/long_press_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <Preference
+                android:key="app_switch_key_long_press_custom_app"
+                android:title="@string/long_press_custom_app_title"
+                android:icon="@drawable/ic_menu_add_white"
+                android:summary="">
+                <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="org.aospextended.extensions.fragments.navbar.AppSwitchLongPress" />
+            </Preference>
+
+            <ListPreference
+                android:key="app_switch_key_double_tap"
+                android:title="@string/double_tap_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <Preference
+                android:key="app_switch_key_double_tap_custom_app"
+                android:title="@string/double_tap_custom_app_title"
+                android:icon="@drawable/ic_menu_add_white"
+                android:summary="">
+                <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="org.aospextended.extensions.fragments.navbar.AppSwitchDoubleTap" />
+            </Preference>
+
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="menu_key"
+            android:title="@string/menu_key_title">
+
+            <ListPreference
+                android:key="menu_key_long_press"
+                android:title="@string/long_press_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <ListPreference
+                android:key="menu_key_double_tap"
+                android:title="@string/double_tap_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="assist_key"
+            android:title="@string/assist_key_title">
+
+            <ListPreference
+                android:key="assist_key_long_press"
+                android:title="@string/long_press_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+            <ListPreference
+                android:key="assist_key_double_tap"
+                android:title="@string/double_tap_title"
+                android:entries="@array/action_entries"
+                android:entryValues="@array/action_values" />
+
+        </PreferenceCategory>
+
+    </PreferenceCategory>
 </PreferenceScreen>
