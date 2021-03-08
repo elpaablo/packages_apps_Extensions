@@ -55,7 +55,7 @@ import java.util.Date;
 import java.util.List;
 
 @SearchIndexable(forTarget = SearchIndexable.ALL & ~SearchIndexable.ARC)
-public class StatusbarClockSettings extends SettingsPreferenceFragment implements
+public class ClockDateSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
     private static final String STATUSBAR_CLOCK = "statusbar_clock";
