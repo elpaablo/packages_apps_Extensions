@@ -716,4 +716,7 @@
 
     <string name="search">Search</string>
     <string name="search_apps">Search apps</string>
+    
+    <string name="theme_customization_navbar_title">Navbar style</string>
+    <string name="theme_customization_navbar_summary">Set custom navigation bar style</string>
 </resources>
